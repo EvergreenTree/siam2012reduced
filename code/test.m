@@ -15,12 +15,12 @@ for i = 1:8
     active_set(MU2(i,:),true);
 end
 
-%debugging RB solution
+%debugging RB solution dim = 2 %not pass
 global H
-H=200
-mu1 = [0.075, 0.4];
-mu2 = [0.1, 0.3];
+H=200;
 xx = linspace(0,1,H+1)';
+mu1 = [0.075, 0.4];
+mu2 = [0.01, 0.35];
 [U1,Lambda1] = active_set(mu1,false);
 [U2,Lambda2] = active_set(mu2,false);
 U = [U1 U2];
@@ -29,14 +29,35 @@ plot(xx,U1)
 hold on 
 plot(xx,U2)
 
-mu3 = [0.01, 0.35];
-[U3,Lambda3] = active_set(mu3,false);
-plot(xx,U3)
-[U_N,Lambda_N,Alpha,Beta] = U_reduced(mu3,U,Lambda);
+[U_N,Lambda_N,Alpha,Beta] = U_reduced([0.4,0.1],U,Lambda);
+plot(xx,U_N)
+
+%test dim = 1 %pass
+mu = [0.01, 0.35];
+% mu = [0.4, 0.2];
+[U,Lambda] = active_set(mu,false);
+plot(xx,U)
+[U_N,Lambda_N,Alpha,Beta] = U_reduced(mu,U,Lambda);
 hold on;
 plot(xx,U_N)
 
-plot(xx,Lambda1)
-hold on 
-plot(xx,Lambda2)
 
+%computing time for both QP methods
+t1 = zeros(20,1);t2 = zeros(20,1);
+
+global H;
+for i = 1:100
+    H = 10*i;
+    tic;
+    active_set(mu0,false);
+    t1(i) = toc;
+    tic;
+    qp_constraint_poisson(mu0,false);
+    t2(i) = toc;
+end
+plot(10:10:1000,t1)
+hold on 
+plot(10:10:1000,t2)
+legend('Active set','Interior Point')
+xlabel('H')
+ylabel('time')

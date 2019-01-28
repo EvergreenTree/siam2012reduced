@@ -1,5 +1,6 @@
 function A = assemble_A(m0,m1)
-    H = 200;
+%     H = 200;
+    global H;
     h = 1/H;
     m01 = (m1 + m0);
     DA = 1 / h * ...

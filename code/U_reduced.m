@@ -13,15 +13,16 @@ function [U_N,Lambda_N,Alpha,Beta] = U_reduced(mu,U,Lambda)
     fh = @(x) (- .2 * (sin(pi * x) - sin(3 * pi * x)) - .5 + m2 * ( x - .5));
     hh = fh(xx);
     B = -speye(H+1);
+    F = [0;-h*ones(H-1,1);0];
 
-    RA = U' * A * U%reduced A %can be optimized
-    Rf = -sum(U) * h%reduced f
-    RB = U' * B * Lambda%reduced B
-    Rg = Lambda' * hh%reduced g
+    RA = U' * A * U;%reduced A %can be optimized during online phase
+    Rf = U'* F;%reduced f
+    RB = U' * B * Lambda;%reduced B
+    Rg = Lambda' * hh;%reduced g
     
-    [Alpha,~,~,~,Beta] = quadprog(RA,-Rf,RB',Rg);
+    [Alpha,~,~,~,Beta] = quadprog(RA,-Rf,RB',Rg,[],[],[],[],[],optimset('Display','off'));
     Beta = Beta.lower;
-    U_N = U * Alpha;
-    Lambda_N = Lambda * Beta;
+    U_N = -U * Alpha;
+    Lambda_N = -Lambda * Beta;
     
 end
