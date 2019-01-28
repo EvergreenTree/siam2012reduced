@@ -9,6 +9,7 @@ function [u, lambda] = qp_constraint_poisson(mu,flag_out)
     m1 = mu(1);%elasticity on [0,.5]
     m2 = mu(2);%slope of constraint
     m0 = .15;%fixed
+    global H;
     h = 1/H;
     A = assemble_A(m0,m1);
     ff = @(x) -1 + 0 * x;
