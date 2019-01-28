@@ -9,7 +9,6 @@ function [u, lambda] = qp_constraint_poisson(mu,flag_out)
     m1 = mu(1);%elasticity on [0,.5]
     m2 = mu(2);%slope of constraint
     m0 = .15;%fixed
-    H = 200;
     h = 1/H;
     A = assemble_A(m0,m1);
     ff = @(x) -1 + 0 * x;
@@ -23,7 +22,7 @@ function [u, lambda] = qp_constraint_poisson(mu,flag_out)
     [u,~,~,~,lambda] = quadprog(A,-f,[],[],[],[],hh); %b -> lower bound
     lambda = lambda.lower;
     if flag_out
-        plot(xx,u)
+        plot(xx,u,'o')
         hold on
         plot(xx,hh)
         plot(xx,lambda)

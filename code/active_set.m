@@ -1,6 +1,7 @@
 function [u, lambda] = active_set(mu,flag_out)
 
-H = 200;
+% H = 200; %global param
+global H;
 h = 1/H;
 xx = linspace(0,1,H+1)';
 xxx = linspace(h,1-h,H-1)';
@@ -61,12 +62,13 @@ end
 % plot(xx,u);%solution
 if flag_out
 %     figure(3);
-    hold off;
-    plot(xx,u,'o');
+%     hold off;
+    hh = fh(xx);
+
+    plot(xx,u);
     hold on;
     plot(xx,hh);
-    hold on;
-    plot(xx,lambda);
+%     plot(xx,lambda);
 end
 
 end

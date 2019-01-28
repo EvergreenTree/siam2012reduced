@@ -29,12 +29,8 @@ plot(xx,U1)
 hold on 
 plot(xx,U2)
 
-mu3 = [0.01, 0.35];
-[U3,Lambda3] = active_set(mu3,false);
-plot(xx,U3)
-[U_N,Lambda_N,Alpha,Beta] = U_reduced(mu3,U,Lambda);
-hold on;
-plot(xx,U_N)
+mu3 = [0.2, 0.3];
+U_reduced(mu,U,Lambda)
 
 plot(xx,Lambda1)
 hold on 
