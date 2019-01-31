@@ -23,7 +23,7 @@ function [u, lambda] = qp_constraint_poisson(mu,flag_out)
     [u,~,~,~,lambda] = quadprog(A,-f,[],[],[],[],hh,[],[],optimset('Display','off')); %b -> lower bound
     lambda = lambda.lower;
     if flag_out
-        plot(xx,u,'o')
+        plot(xx,u)
         hold on
         plot(xx,hh)
         plot(xx,lambda)

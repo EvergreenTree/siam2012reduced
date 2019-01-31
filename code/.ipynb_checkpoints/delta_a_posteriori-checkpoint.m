@@ -19,13 +19,11 @@ function [D] = delta_a_posteriori(mu,U,Lambda)
     fh = @(x) (- .2 * (sin(pi * x) - sin(3 * pi * x)) - .5 + m2 * ( x - .5));
     hh = fh(xx);
     F = [0;-h*ones(H-1,1);0];
-    
-    
     v =  F - assemble_A(m0,m1) * U_N + Lambda_N;%residual r (for linear system)
     d_r = v' * K * v; %H^1_0
-    v = (-U_N - hh > 0).*(-U_N - hh);%positive part of residual eta (for constraint)
-    d_s1 = v' * ((K + M) \ v); %H^(-1)
-    d_s2 = Lambda_N' * ((K + M) \ v);
+    v = (-U_N - hh > 0);%positive part of residual eta (for constraint)
+    d_s1 = v' \ (K + M) * v; %H^(-1)
+    d_s2 = Lambda_N \ (K + M) * v;
     c1 = (d_s1 * gamma / beta + d_r) / 2 / alpha;
     c2 = (d_s1 * d_r / beta + d_s2) / alpha;
     

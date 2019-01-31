@@ -20,6 +20,7 @@ for i = 2:max_iter
 end
 plot(mu(:,1),mu(:,2),'o')
 
+
 for i = 2:max_iter
     [mu_max,fval] = fmincon(@(mu)-delta_a_posteriori(mu,U,Lambda),mu(end,:),[],[],[],[],mm,MM,[],opts1);
     fprintf("Delta(u,X) = %f, Dimention of RB = %d\n", fval,i);
