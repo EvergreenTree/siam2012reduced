@@ -2,6 +2,7 @@
 M1 = linspace(.05,.25,8)';
 M2 = linspace(-.005,.5,8)';
 mu0 = [0.075, 0.4];
+[U0,Lambda0] = qp_constraint_poisson(mu0,true);
 MU1 = [M1 ones(8,1)*mu0(2)];
 MU2 = [ones(8,1)*mu0(1) M2];
 
@@ -15,7 +16,7 @@ for i = 1:8
     active_set(MU2(i,:),true);
 end
 
-%$ debugging RB solution dim = 2 %not pass
+%$ debugging RB solution dim = 2 %pass
 global H
 H=200;
 xx = linspace(0,1,H+1)';
@@ -64,3 +65,13 @@ plot(10:10:1000,t2)
 legend('Active set','Interior Point')
 xlabel('H')
 ylabel('time')
+
+
+
+
+hold on;
+for i = 1:8
+    [U_N,Lambda_N,Alpha,Beta] = U_reduced(MU2(i,:),U,Lambda);
+    Beta
+end
+

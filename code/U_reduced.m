@@ -23,7 +23,8 @@ function [U_N,Lambda_N,Alpha,Beta] = U_reduced(mu,U,Lambda)
     Rg = Lambda' * hh;%reduced g
     
     [Alpha,~,~,~,Beta] = quadprog(RA,-Rf,RB',-Rg,[],[],[],[],[],optimset('Display','off'));
-    Beta = Beta.lower;
+    Beta = Beta.ineqlin;
+%     Beta = Beta.lower;
     U_N = U * Alpha;
     Lambda_N = Lambda * Beta;
 %     plot(xx,hh);
