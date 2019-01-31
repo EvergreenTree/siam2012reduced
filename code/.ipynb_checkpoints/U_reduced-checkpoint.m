@@ -17,15 +17,14 @@ function [U_N,Lambda_N,Alpha,Beta] = U_reduced(mu,U,Lambda)
     B = -speye(H+1);
 %     F = [0;-h*ones(H-1,1);0];
 
-    RA = U' * A * U;%reduced A %can be optimized during online phase
+    RA = U' * A * U%reduced A %can be optimized during online phase
     Rf = U' * f;%reduced f
     RB = U' * B * Lambda;%reduced B
     Rg = Lambda' * hh;%reduced g
     
-    [Alpha,~,~,~,Beta] = quadprog(RA,-Rf,-RB,Rg,[],[],[],[],[],optimset('Display','off'));
+    [Alpha,~,~,~,Beta] = quadprog(RA,-Rf,RB',Rg,[],[],[],[],[],optimset('Display','off'));
     Beta = Beta.lower;
-    U_N = U * Alpha;
-    Lambda_N = Lambda * Beta;
-%     plot(xx,hh);
+    U_N = -U * Alpha;
+    Lambda_N = -Lambda * Beta;
     
 end

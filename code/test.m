@@ -19,18 +19,19 @@ end
 global H
 H=200;
 xx = linspace(0,1,H+1)';
-mu1 = [0.075, 0.4];
+mu1 = [0.6, 0.4];
 mu2 = [0.01, 0.35];
-[U1,Lambda1] = active_set(mu1,false);
-[U2,Lambda2] = active_set(mu2,false);
+[U1,Lambda1] = qp_constraint_poisson(mu1,true);
+[U2,Lambda2] = qp_constraint_poisson(mu2,true);
 U = [U1 U2];
 Lambda = [Lambda1 Lambda2];%2 bases
-plot(xx,U1)
-hold on 
-plot(xx,U2)
+% plot(xx,U1)
+% hold on 
+% plot(xx,U2)
 
-[U_N,Lambda_N,Alpha,Beta] = U_reduced([0.4,0.1],U,Lambda);
+[U_N,Lambda_N,Alpha,Beta] = U_reduced([0.01, 0.35],U,Lambda);
 plot(xx,U_N)
+
 
 %test dim = 1 %pass
 mu = [0.01, 0.35];
