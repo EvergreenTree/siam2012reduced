@@ -21,12 +21,12 @@ function [D] = delta_a_posteriori(mu,U,Lambda)
     F = [0;-h*ones(H-1,1);0];
     
     v =  F - assemble_A(m0,m1) * U_N + Lambda_N;%residual r (for linear system)
-    d_r = norm(v);
-%     d_r = sqrt(v' * (K) * v); %H^1_0
-    v = ( - U_N + hh > 0).*( - U_N + hh);%positive part of residual eta (for constraint)
-    d_s1 = norm(v);
+%     d_r = norm(v);
+    d_r = sqrt(v' * (K) * v); %H^1_0
+    v = ( - U_N - hh > 0).*( - U_N + hh);%positive part of residual eta (for constraint)
+%     d_s1 = norm(v);
 %     d_s2 = Lambda_N'*v;
-%     d_s1 = sqrt(v' * ((K + M) \ v)); %H^(-1)
+    d_s1 = sqrt(v' * ((K + M) \ v)); %H^(-1)
     d_s2 = Lambda_N' * (M) * v;
     c1 = (d_s1 * gamma / beta + d_r) / 2 / alpha;
     c2 = (d_s1 * d_r / beta + d_s2) / alpha;

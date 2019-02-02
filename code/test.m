@@ -16,7 +16,7 @@ for i = 1:8
     active_set(MU2(i,:),true);
 end
 
-%$ debugging RB solution dim = 2 %pass
+%$ debugging RB solution dim = 3 %pass
 global H
 H=200;
 xx = linspace(0,1,H+1)';
@@ -31,10 +31,13 @@ Lambda = [Lambda1 Lambda2 Lambda3];%2 bases
 % plot(xx,U1)
 % hold on 
 % plot(xx,U2)
-
 [U_N,Lambda_N,Alpha,Beta] = U_reduced(mu2,U,Lambda);
 plot(xx,U_N,'x')
 
+xlabel("\mu_1")
+ylabel("\mu_2")
+xlim([.05,.25])
+ylim([-.05,.5])
 
 %test dim = 1 %pass
 mu = [0.01, 0.35];
@@ -66,12 +69,4 @@ legend('Active set','Interior Point')
 xlabel('H')
 ylabel('time')
 
-
-
-
-hold on;
-for i = 1:8
-    [U_N,Lambda_N,Alpha,Beta] = U_reduced(MU2(i,:),U,Lambda);
-    Beta
-end
 
