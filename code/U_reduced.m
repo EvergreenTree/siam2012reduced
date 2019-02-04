@@ -1,7 +1,10 @@
-function [U_N,Lambda_N,Alpha,Beta] = U_reduced(mu,U,Lambda)
+function [U_N,Lambda_N,Alpha,Beta] = U_reduced(mu,U,Lambda,flag_out)
 % min  .5*A*u-f
 % s.t. - B >= - g
 %     H = 200;
+    if nargin < 4
+        flag_out = false;
+    end
     global H;
     h = 1/H;
     m0 = .15;%elasticity on [.5,1], fixed
@@ -28,5 +31,12 @@ function [U_N,Lambda_N,Alpha,Beta] = U_reduced(mu,U,Lambda)
     U_N = U * Alpha;
     Lambda_N = Lambda * Beta;
 %     plot(xx,hh);
+
+    if flag_out
+        plot(xx,U_N)
+        hold on
+        plot(xx,hh)
+        plot(xx,Lambda_N)
+    end
     
 end

@@ -1,6 +1,6 @@
 function [u, lambda] = qp_constraint_poisson(mu,flag_out)
     if nargin < 1 
-        mu = [1,.1];
+        mu = [.1,.1];
     end
     if nargin < 2
         flag_out = true;
@@ -18,10 +18,12 @@ function [u, lambda] = qp_constraint_poisson(mu,flag_out)
     f = [0;h * ff(xxx);0];
     fh = @(x) (- .2 * (sin(pi * x) - sin(3 * pi * x)) - .5 + m2 * ( x - .5));
     hh = fh(xx);
-%     A2 = -speye(N+1);
-%     [u,~,~,~,lambda] = quadprog(A,-f,A2,b)
-    [u,~,~,~,lambda] = quadprog(A,-f,[],[],[],[],hh,[],[],optimset('Display','off')); %b -> lower bound
-    lambda = lambda.lower;
+%     [u,~,~,~,lambda] = quadprog(A,-f,[],[],[],[],hh,[],[],optimset('Display','off')); %b -> lower bound
+%     lambda = lambda.lower;
+    B = -speye(H+1);
+    [u,~,~,~,lambda] = quadprog(A,-f,B',-hh,[],[],[],[],[],optimset('Display','off')); %b -> lower bound
+    lambda = lambda.ineqlin;
+    
     if flag_out
         plot(xx,u)
         hold on

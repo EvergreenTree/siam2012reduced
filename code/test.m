@@ -1,4 +1,6 @@
 %output fig: adjust mu1 or m2
+global H
+H=200
 M1 = linspace(.05,.25,8)';
 M2 = linspace(-.005,.5,8)';
 mu0 = [0.075, 0.4];
@@ -16,37 +18,19 @@ for i = 1:8
     active_set(MU2(i,:),true);
 end
 
-%$ debugging RB solution dim = 3 %pass
-global H
-H=200;
-xx = linspace(0,1,H+1)';
-mu1 = [0.6, 0.4];
-mu2 = [0.05, 0.35];
-mu3 = [0.2, 0.2];
-[U1,Lambda1] = qp_constraint_poisson(mu1,true);
-[U2,Lambda2] = qp_constraint_poisson(mu2,true);
-[U3,Lambda3] = qp_constraint_poisson(mu3,true);
-U = [U1 U2 U3];
-Lambda = [Lambda1 Lambda2 Lambda3];%2 bases
-% plot(xx,U1)
-% hold on 
-% plot(xx,U2)
-[U_N,Lambda_N,Alpha,Beta] = U_reduced(mu2,U,Lambda);
-plot(xx,U_N,'x')
+%suppress warnings
+w = warning('query','last');
+warning('off',w.identifier)
 
-xlabel("\mu_1")
-ylabel("\mu_2")
-xlim([.05,.25])
-ylim([-.05,.5])
 
 %test dim = 1 %pass
 mu = [0.01, 0.35];
 % mu = [0.4, 0.2];
-[U,Lambda] = active_set(mu,false);
+[U,Lambda] = qp_constraint_poisson(mu,false);
 plot(xx,U)
 [U_N,Lambda_N,Alpha,Beta] = U_reduced(mu,U,Lambda);
 hold on;
-plot(xx,U_N)
+plot(xx,U_N,'.')
 
 
 %computing time for both QP methods

@@ -23,7 +23,7 @@ function [D] = delta_a_posteriori(mu,U,Lambda)
     v =  F - assemble_A(m0,m1) * U_N + Lambda_N;%residual r (for linear system)
 %     d_r = norm(v);
     d_r = sqrt(v' * (K) * v); %H^1_0
-    v = ( - U_N - hh > 0).*( - U_N + hh);%positive part of residual eta (for constraint)
+    v = ( - U_N + hh > 0 ) .* ( - U_N + hh );%positive part of residual eta (for constraint)
 %     d_s1 = norm(v);
 %     d_s2 = Lambda_N'*v;
     d_s1 = sqrt(v' * ((K + M) \ v)); %H^(-1)
@@ -35,9 +35,4 @@ function [D] = delta_a_posteriori(mu,U,Lambda)
     D_u = c1+sqrt(c1^2+c2);
     D_lambda = (d_r + gamma * D_u) / beta;
     D = D_u + D_lambda;
-end
-
-function y = norm_H1(x)
-    K = Stiffness;
-    y = x * (K \ x);
 end
