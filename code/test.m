@@ -27,10 +27,10 @@ warning('off',w.identifier)
 mu = [0.01, 0.35];
 % mu = [0.4, 0.2];
 [U,Lambda] = qp_constraint_poisson(mu,false);
-plot(xx,U)
+plot(xxx,U)
 [U_N,Lambda_N,Alpha,Beta] = U_reduced(mu,U,Lambda);
 hold on;
-plot(xx,U_N,'.')
+plot(xxx,U_N,'.')
 
 
 %computing time for both QP methods

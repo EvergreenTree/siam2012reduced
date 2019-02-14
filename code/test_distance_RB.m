@@ -3,7 +3,7 @@ if nargin < 3
     flag_out = true;
 end
 max_iter = size(U,2) - 1;
-N = 27;
+N = 33;
 mm = [.05,-.005];%min
 MM = [.25,.5];%max
 mm1 = linspace(mm(1),MM(1),N);
