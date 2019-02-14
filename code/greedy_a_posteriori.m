@@ -1,4 +1,4 @@
-function [mu, U,Lambda] = greedy_a_posteriori(max_iter,flag_out,m,n)
+function [mu, U,Lambda,DD] = greedy_a_posteriori(max_iter,flag_out,m,n)
 suppress_warnings();
 if nargin < 2
     flag_out = false;

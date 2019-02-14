@@ -1,4 +1,4 @@
-function [mu, U,Lambda] = greedy_true_err(max_iter,flag_out,m,n)
+function [mu, U,Lambda, DD] = greedy_true_err(max_iter,flag_out,m,n)
 suppress_warnings();
 if nargin < 2
     flag_out = false;
@@ -18,11 +18,11 @@ H=200;
 mu = [.15,.25];
 [U,Lambda] = active_set(mu,false);
 EPS = 1e-6;
-N = 7;
+N = 17;
 mm1 = linspace(mm(1),MM(1),N);
 mm2 = linspace(mm(2),MM(2),N);
 [M1,M2] = meshgrid(mm1,mm2);
-DD = zeros(max_iter-1);
+DD = zeros(max_iter,1);
 if flag_out
     figure(1);setfigure;
 end

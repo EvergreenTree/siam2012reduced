@@ -1,4 +1,4 @@
-function test_dist_snapshot(U,Lambda)
+function test_dist_snapshot_rand(U,Lambda)
 % testing the base
 M1 = linspace(.05,.25,8)';
 M1 = M1(1)+(M1(2)-M1(1))*rand(8,1);
