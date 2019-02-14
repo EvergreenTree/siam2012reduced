@@ -1,6 +1,6 @@
 %output fig: adjust mu1 or m2
 global H
-H=200
+H=200;
 M1 = linspace(.05,.25,8)';
 M2 = linspace(-.005,.5,8)';
 mu0 = [0.075, 0.4];

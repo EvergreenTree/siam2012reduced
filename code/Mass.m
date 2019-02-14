@@ -6,5 +6,5 @@ function M = Mass(n)
     end
     h = 1/n;
     DM = h * ones(n+1,1)*[1/6 1 1/6];
-    M = (spdiags(DM,[-1 0 1],n+1,n+1));
+    M = (spdiags(DM,[-1 0 1],n,n));
 end

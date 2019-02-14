@@ -15,19 +15,20 @@ function [u, lambda] = qp_constraint_poisson(mu,flag_out)
     ff = @(x) -1 + 0 * x;
     xx = linspace(0,1,H+1)';
     xxx = linspace(h,1-h,H-1)';
-    f = [0;h * ff(xxx);0];
+%     f = [0;h * ff(xxx);0];
+    f = h * ff(xxx);
     fh = @(x) (- .2 * (sin(pi * x) - sin(3 * pi * x)) - .5 + m2 * ( x - .5));
-    hh = fh(xx);
+    hh = fh(xxx);
 %     [u,~,~,~,lambda] = quadprog(A,-f,[],[],[],[],hh,[],[],optimset('Display','off')); %b -> lower bound
 %     lambda = lambda.lower;
-    B = -speye(H+1);
+    B = -speye(H-1);
     [u,~,~,~,lambda] = quadprog(A,-f,B',-hh,[],[],[],[],[],optimset('Display','off')); %b -> lower bound
     lambda = lambda.ineqlin;
     
     if flag_out
-        plot(xx,u)
+        plot(xxx,u)
         hold on
-        plot(xx,hh)
-        plot(xx,lambda)
+        plot(xxx,hh)
+        plot(xxx,lambda)
     end
 end
