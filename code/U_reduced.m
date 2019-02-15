@@ -26,7 +26,7 @@ function [U_N,Lambda_N,Alpha,Beta] = U_reduced(mu,U,Lambda,flag_out)
     RB = U' * B * Lambda;%reduced B
     Rg = Lambda' * hh;%reduced g
     
-    [Alpha,~,~,~,Beta] = quadprog(RA,-Rf,-RB',-Rg,[],[],[],[],[1;0;0],optimset('Display','off'));
+    [Alpha,~,~,~,Beta] = quadprog(RA,-Rf,-RB',-Rg,[],[],[],[],[],optimset('Display','off'));
     Beta = Beta.ineqlin;
 %     Beta = Beta.lower;
     U_N = U * Alpha;

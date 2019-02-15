@@ -23,7 +23,7 @@ N = 7;
 mm1 = linspace(mm(1),MM(1),N);
 mm2 = linspace(mm(2),MM(2),N);
 [M1,M2] = meshgrid(mm1,mm2);
-DD = zeros(max_iter-1);
+DD = zeros(max_iter,1);
 if flag_out
     figure(1);setfigure;
 end

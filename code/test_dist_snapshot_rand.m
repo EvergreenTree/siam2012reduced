@@ -4,9 +4,10 @@ M1 = linspace(.05,.25,8)';
 M1 = M1(1)+(M1(2)-M1(1))*rand(8,1);
 M2 = linspace(-.005,.5,8)';
 % mu0 = [0.075, 0.4];
-mu0 = [.15,.25];
+mu0 = [0.0500   -0.0050];
 [U0, Lambda0] = active_set(mu0,false);
-[U_N, Lambda_N] = U_reduced(mu0,U,Lambda);
+[U_N, Lambda_N,Alpha,Beta] = U_reduced(mu0,U,Lambda);
+Alpha
 fprintf("snapshot: D(u,RB)/norm(u) = %f\n",normL2(U0-U_N));
 MU1 = [M1 ones(8,1)*mu0(2)];
 % MU2 = [ones(8,1)*mu0(1) M2];

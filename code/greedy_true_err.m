@@ -11,14 +11,14 @@ end
 % [U_true, Lambda] = active_set();
 mm = [.05,-.005];
 MM = [.25,.5];
-mu0 = [0.075, 0.4];
+% mu0 = [0.075, 0.4];
 global H;
 H=200;
 
 mu = [.15,.25];
 [U,Lambda] = active_set(mu,false);
 EPS = 1e-6;
-N = 17;
+N = 32;
 mm1 = linspace(mm(1),MM(1),N);
 mm2 = linspace(mm(2),MM(2),N);
 [M1,M2] = meshgrid(mm1,mm2);
