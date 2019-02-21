@@ -21,11 +21,11 @@ function [u, lambda] = qp_constraint_poisson(mu,flag_out)
     hh = fh(xxx);
 %     [u,~,~,~,lambda] = quadprog(A,-f,[],[],[],[],hh,[],[],optimset('Display','off')); %b -> lower bound
 %     lambda = lambda.lower;
-%     B = -speye(H-1);
-%     [u,~,~,~,lambda] = quadprog(A,-f,B',-hh,[],[],[],[],[],optimset('Display','off')); %b -> lower bound
-%     lambda = lambda.ineqlin;
-    [u,~,~,~,lambda] = quadprog(A,-f,[],[],[],[],hh,[],[],optimset('Display','off')); %b -> lower bound
-    lambda = lambda.lower;
+    B = speye(H-1);
+    [u,~,~,~,lambda] = quadprog(A,-f,-B',-hh,[],[],[],[],[],optimset('Display','off')); %b -> lower bound
+    lambda = lambda.ineqlin;
+%     [u,~,~,~,lambda] = quadprog(A,-f,[],[],[],[],hh,[],[],optimset('Display','off')); %b -> lower bound
+%     lambda = lambda.lower;
     
     if flag_out
         plot(xxx,u)

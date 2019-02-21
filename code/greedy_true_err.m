@@ -18,7 +18,7 @@ H=200;
 mu = [.15,.25];
 [U,Lambda] = active_set(mu,false);
 EPS = 1e-6;
-N = 32;
+N = 17;
 mm1 = linspace(mm(1),MM(1),N);
 mm2 = linspace(mm(2),MM(2),N);
 [M1,M2] = meshgrid(mm1,mm2);
@@ -30,6 +30,12 @@ fprintf("computing RB\n")
 for i = 2:max_iter+1
 %     [mu_max,fval] = fmincon(@(mu)-delta_true(mu,U,Lambda),mu(end,:),[],[],[],[],mm,MM,[],opts1);
     Deval = arrayfun(@(m1,m2)delta_true([m1,m2],U,Lambda),M1,M2);
+%     Deval = zeros(N,N);
+%     for k=1:N
+%         for j=1:N
+%             Deval(k,j) = delta_true([M1(k,j),M2(k,j)],U,Lambda);
+%         end
+%     end
     fval = max(max(Deval));
     DD(i-1) = fval;
     [j,k] = find(Deval == fval);
