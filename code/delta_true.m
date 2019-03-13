@@ -1,4 +1,4 @@
-    function [D] = delta_true(mu,U,Lambda)
+function [D] = delta_true(mu,U,Lambda)
 %U = reduced space, mu = parameter
     global H
     [U_true,Lambda_true] = active_set(mu,false);
